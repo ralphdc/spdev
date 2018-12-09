@@ -19,6 +19,28 @@ def parse_groups_data(data_string):
 def get_person_friend(fid):
     pass
 
+def download_fid(rtk, _rtk):
+    spider = Spider(Cookie)
+    mgo = MongoDB()
+    for d in mgo.get_collection('renren_member').find():
+        fid = d.get('fid') or None
+        if fid:
+            target = spider.get_friend_list(fid, rtk, _rtk)
+            if target:
+                for t in target:
+                    try:
+                        t_fid = t.get('fid')
+                    except Exception as e:
+                        Log.get_logger().exception(e)
+                        print("[Error] fid is empty!")
+
+                    query_this = mgo.get_collection('renren_member').find_one({"fid": t_fid})
+                    if not query_this:
+                        mgo.get_collection('renren_member').insert_one(t)
+                        print("%s insert ok!" % t)
+                    else:
+                        print("%s pass!" % t)
+    download_fid(rtk, _rtk)
 
 if __name__ == '__main__':
     Log.get_logger().info("----------------application begin to execute------------------")
@@ -56,12 +78,4 @@ if __name__ == '__main__':
         elif args.operate == "fire":
             rtk = args.rtk
             _rtk = args._rtk
-            spider = Spider(Cookie)
-            mgo = MongoDB()
-            for d in mgo.get_collection('main_friends').find():
-                fid = d.get('fid') or None
-                if fid:
-                    target = spider.get_friend_list(fid, rtk, _rtk)
-                    if target:
-                        print("---------------------------fid: %s----------------------------" % fid)
-                        print(target)
+            download_fid(rtk, _rtk)
