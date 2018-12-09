@@ -4,6 +4,7 @@
 import pymongo
 import redis
 import logging
+import os
 from config import Config
 
 class Log():
