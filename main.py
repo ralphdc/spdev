@@ -19,7 +19,7 @@ def parse_groups_data(data_string):
 def get_person_friend(fid):
     pass
 
-def download_fid(rtk, _rtk):
+def download_fid(Cookie, rtk, _rtk):
     spider = Spider(Cookie)
     mgo = MongoDB()
     for d in mgo.get_collection('renren_member').find():
@@ -40,7 +40,7 @@ def download_fid(rtk, _rtk):
                         print("%s insert ok!" % t)
                     else:
                         print("%s pass!" % t)
-    download_fid(rtk, _rtk)
+    download_fid(Cookie, rtk, _rtk)
 
 if __name__ == '__main__':
     Log.get_logger().info("----------------application begin to execute------------------")
@@ -78,4 +78,4 @@ if __name__ == '__main__':
         elif args.operate == "fire":
             rtk = args.rtk
             _rtk = args._rtk
-            download_fid(rtk, _rtk)
+            download_fid(Cookie, rtk, _rtk)
