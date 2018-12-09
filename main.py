@@ -25,10 +25,11 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-r", "--run", type=str, default='spider', choices=['spider'], help="please input init operation~!")
-    parser.add_argument("-p", "--operate", type=str, default='mainfriend', choices=['mainfriend', 'queryfriend'], help="please input init operation~!")
+    parser.add_argument("-p", "--operate", type=str, default='mainfriend', choices=['mainfriend', 'queryfriend', 'fire'], help="please input init operation~!")
     parser.add_argument("-f", "--fid", type=str, default='227858937', help="please input member fid~!")
     parser.add_argument("-t", "--rtk", type=str, default='-1716276427', help="please input request post token~!")
     parser.add_argument("-k", "--_rtk", type=str, default='6574b18f', help="please input request post token~!")
+    parser.add_argument("-d", "--dg", type=str, default='fire', help="please input dg operate command~!")
 
     args = parser.parse_args()
 
@@ -52,5 +53,15 @@ if __name__ == '__main__':
             _rtk    = args._rtk
             spider = Spider(Cookie)
             fid_friends = spider.get_friend_list(fid, rtk, _rtk)
-            print(fid_friends)
-            print(len(fid_friends))
+        elif args.operate == "fire":
+            rtk = args.rtk
+            _rtk = args._rtk
+            spider = Spider(Cookie)
+            mgo = MongoDB()
+            for d in mgo.get_collection('main_friends').find():
+                fid = d.get('fid') or None
+                if fid:
+                    target = spider.get_friend_list(fid, rtk, _rtk)
+                    if target:
+                        print("---------------------------fid: %s----------------------------" % fid)
+                        print(target)
