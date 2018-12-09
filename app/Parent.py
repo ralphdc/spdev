@@ -28,11 +28,11 @@ class Parent():
         except Exception as e:
             Log.get_logger().exception(e)
             sys.exit(1)
-        Log.get_logger().info("send http with GET method detected>>>>>>>>>>>>>>>>>>>>>>>>>")
-        Log.get_logger().info("[ response code ]: %s " % response.status_code)
-        Log.get_logger().info("[ response text ]: %s " % response.text.encode('unicode_escape').decode('utf-8'))
-        Log.get_logger().info("[ response cookies ]: %s " % response.cookies)
-        Log.get_logger().info("[ response headers ]: %s " % response.headers)
+        #Log.get_logger().info("send http with GET method detected>>>>>>>>>>>>>>>>>>>>>>>>>")
+        #Log.get_logger().info("[ response code ]: %s " % response.status_code)
+        #Log.get_logger().info("[ response text ]: %s " % response.text.encode('unicode_escape').decode('utf-8'))
+        #Log.get_logger().info("[ response cookies ]: %s " % response.cookies)
+        #Log.get_logger().info("[ response headers ]: %s " % response.headers)
 
         return response.status_code, response.json() if json else response.text, response.cookies
 
@@ -42,11 +42,11 @@ class Parent():
         except Exception as e:
             Log.get_logger().exception(e)
 
-        Log.get_logger().info("send http with POST method detected>>>>>>>>>>>>>>>>>>>>>>>>>")
-        Log.get_logger().info("[ response code ]: %s " % response.status_code)
-        Log.get_logger().info("[ response text ]: %s " % response.text.encode('unicode_escape').decode('utf-8'))
-        Log.get_logger().info("[ response cookies ]: %s " % response.cookies)
-        Log.get_logger().info("[ response headers ]: %s " % response.headers)
+            #Log.get_logger().info("send http with POST method detected>>>>>>>>>>>>>>>>>>>>>>>>>")
+            #Log.get_logger().info("[ response code ]: %s " % response.status_code)
+            #Log.get_logger().info("[ response text ]: %s " % response.text.encode('unicode_escape').decode('utf-8'))
+            #Log.get_logger().info("[ response cookies ]: %s " % response.cookies)
+            #Log.get_logger().info("[ response headers ]: %s " % response.headers)
 
         return response.status_code, response.json() if json else response.text, response.cookies
 
