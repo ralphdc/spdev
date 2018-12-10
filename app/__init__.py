@@ -21,7 +21,7 @@ class Log():
         console.setFormatter(formatter)
 
         logger.addHandler(handler)
-        logger.addHandler(console)
+        #logger.addHandler(console)
 
         return logger
 
